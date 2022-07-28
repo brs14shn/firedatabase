@@ -2,11 +2,17 @@ import { useState } from "react";
 import { toastErrorNotify, toastSuccessNotify } from "../utils/customToastify";
 
 const Form = () => {
-  const [users, setUsers] = useState(true);
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("email"))
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    toastSuccessNotify("Giriş başarılı");
+    if (currentUser) {
+      toastSuccessNotify("Yeni bilgi eklendi");
+    } else {
+      toastErrorNotify("Login olunuz");
+    }
   };
   return (
     <div className="mt-3 formStyled ">

@@ -10,17 +10,15 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(sessionStorage.getItem("email")) || false
-  );
+  const [currentUser, setCurrentUser] = useState(false);
   console.log(currentUser);
   const navigate = useNavigate();
 
   const displayName = "Erhan TEZER";
 
-  //   useEffect(() => {
-  //     setCurrentUser(JSON.parse(sessionStorage.getItem("email")));
-  //   }, []);
+  useEffect(() => {
+    setCurrentUser(JSON.parse(sessionStorage.getItem("email")));
+  }, [JSON.parse(sessionStorage.getItem("email"))]);
 
   const handleClick = () => {
     setCurrentUser(sessionStorage.clear());
