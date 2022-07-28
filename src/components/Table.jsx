@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import { db } from "../auth/firebase";
-import { onValue, remove, ref } from "firebase/database";
+import { onValue, remove, ref, getDatabase } from "firebase/database";
 // import Edited from "./Edited";
 
 const Table = () => {
