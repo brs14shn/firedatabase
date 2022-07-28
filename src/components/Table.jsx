@@ -1,25 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
-import Edited from "./Edited";
+import { db } from "../auth/firebase";
+import { onValue, remove, ref } from "firebase/database";
+// import Edited from "./Edited";
 
-const Table = ({ concat }) => {
-  // const [edited, setEdited] = useState();
+const Table = () => {
+  const [dataList, setDataList] = useState([]);
+  //! READ
+  useEffect(() => {
+    const concatListRef = ref(db, "concatList");
+    onValue(concatListRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      for (let id in data) {
+        dataList.push(data[id]);
+      }
+      console.log(dataList);
+      setDataList(dataList);
+    });
+  }, [setDataList]);
 
-  let contactInfo = [
-    {
-      id: 1,
-      name: "Erhan",
-      phone: "0656 5656 5656 ",
-      gender: "male",
-    },
-    {
-      id: 2,
-      name: "Barış",
-      phone: "0656 5656 5656",
-      gender: "male",
-    },
-  ];
+  //? DELETE
+  const handleDeleteList = (id) => {
+    remove(ref(db, "concatList/" + id));
+  };
   return (
     <div className="tableStyled">
       <h3 className="bg-light border border-light p-2 rounded-pill">
@@ -39,7 +44,7 @@ const Table = ({ concat }) => {
           </tr>
         </thead>
         <tbody>
-          {contactInfo?.map((item) => {
+          {dataList?.map((item) => {
             const { id, name, phone, gender } = item;
 
             return (
@@ -59,13 +64,17 @@ const Table = ({ concat }) => {
                   />
                 </td>
                 <td>
-                  <AiFillDelete className="text-danger" />
+                  <AiFillDelete
+                    className="text-danger"
+                    onClick={() => handleDeleteList(id)}
+                  />
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+
       {/* <Edited edited={edited} /> */}
     </div>
   );

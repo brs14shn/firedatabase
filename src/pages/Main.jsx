@@ -5,20 +5,20 @@ import { db } from "../auth/firebase";
 import { onValue, ref } from "firebase/database";
 
 const Main = () => {
-  const [dataList, setDataList] = useState([]);
+  // const [dataList, setDataList] = useState([]);
   //*READ
-  useEffect(() => {
-    const concatListRef = ref(db, "concatList");
-    onValue(concatListRef, (snapshot) => {
-      const data = snapshot.val();
-      // console.log(data);
-      for (let id in data) {
-        dataList.push(data[id]);
-      }
-      console.log(dataList);
-      setDataList(dataList);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const concatListRef = ref(db, "concatList");
+  //   onValue(concatListRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //     // console.log(data);
+  //     for (let id in data) {
+  //       dataList.push(data[id]);
+  //     }
+  //     console.log(dataList);
+  //     setDataList(dataList);
+  //   });
+  // }, []);
   return (
     <div
       style={{ marginTop: "2rem", height: "80vh" }}
@@ -26,7 +26,7 @@ const Main = () => {
       align-items-center flex-md-row gap-5 "
     >
       <Form />
-      <Table dataList={dataList} />
+      <Table />
     </div>
   );
 };
