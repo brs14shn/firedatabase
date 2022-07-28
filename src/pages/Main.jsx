@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
 import Form from "../components/Form";
 import Table from "../components/Table";
-import { db } from "../auth/firebase";
-import { onValue, ref } from "firebase/database";
+// import { db } from "../auth/firebase";
+// import { onValue, ref } from "firebase/database";
 
 const Main = () => {
   // const [dataList, setDataList] = useState([]);

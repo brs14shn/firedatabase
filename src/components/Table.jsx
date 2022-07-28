@@ -19,7 +19,7 @@ const Table = () => {
       console.log(dataList);
       setDataList(dataList);
     });
-  }, [setDataList]);
+  }, []);
 
   //? DELETE
   const handleDeleteList = (id) => {
