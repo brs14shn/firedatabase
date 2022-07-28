@@ -1,17 +1,36 @@
 import { useState } from "react";
 import { toastErrorNotify, toastSuccessNotify } from "../utils/customToastify";
+import { db } from "../auth/firebase";
+import { push, ref, set } from "firebase/database";
 
 const Form = () => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("email"))
   );
 
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [gender, setGender] = useState("");
+
+  //*write
+  const writeUserData = () => {
+    const concatListRef = ref(db, "concatList");
+    // console.log(concatListRef);
+    const newConcatRef = push(concatListRef);
+    set(newConcatRef, {
+      name: name,
+      phone: phone,
+      gender: gender,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (currentUser) {
-      toastSuccessNotify("Yeni bilgi eklendi");
+    if (!name || !phone || !gender) {
+      toastErrorNotify("Please provide value in each input field");
     } else {
-      toastErrorNotify("Login olunuz");
+      writeUserData();
+      toastSuccessNotify("Successfly added");
     }
   };
   return (
@@ -26,7 +45,9 @@ const Form = () => {
               type="text"
               className="form-control"
               id="name"
+              value={name}
               placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="form-group mb-3">
@@ -35,10 +56,15 @@ const Form = () => {
               className="form-control"
               id="phone-number"
               placeholder="Phone Number"
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
           <div>
-            <select className="custom-select mb-3 w-100 p-1" id="select-gender">
+            <select
+              className="custom-select mb-3 w-100 p-1"
+              onChange={(e) => setGender(e.target.value)}
+              id="select-gender"
+            >
               <option selected>Gender</option>
               <option value="female">Female</option>
               <option value="male">Male</option>

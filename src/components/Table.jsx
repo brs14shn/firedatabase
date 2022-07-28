@@ -3,7 +3,7 @@ import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import Edited from "./Edited";
 
-const Table = () => {
+const Table = ({ concat }) => {
   // const [edited, setEdited] = useState();
 
   let contactInfo = [
